@@ -1,16 +1,40 @@
-### Hi there 👋
+import wikipedia
+import pyttsx3
+import speech_recognition as sr
+import pyaudio
 
-<!--
-**RexAquino/RexAquino** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+def talk(text):
+    engine = pyttsx3.init()
+    engine.setProperty('rate',100)
+    engine.say(text)
+    engine.runAndWait()
 
-Here are some ideas to get you started:
+listener = sr.Recognizer()
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+def take_commmand():
+    command = ""
+    try:
+       with sr.Microphone() as source:
+           print("Listening...")
+           voice = listener.listen(source)
+           command = listener.recognize_google(voice)
+           command = command.lower
+           print(command)
+           if "jacob" in command:
+               command = command.replace("jacob", "")
+               print(command)
+           if 'old' in command:
+               talk("I am 20 years old")
+           if 'live' in command:
+               talk("I live in Zamboanga City")
+           if 'peter' in command:
+               talk("We are siblings")
+           else:
+               talk("Please say my name")
+
+    except:
+        pass
+    command ="no mic"
+    print(command)
+
+    take_commmand()
